@@ -1,0 +1,201 @@
+<section
+  [ngClass]="{ 'items-center justify-center': !isSearchTriggered }"
+  class="overflow-y-auto overflow-x-hidden h-full flex"
+>
+  <div class="flex flex-col py-12 px-20 justify-start">
+    <h3 class="text-sky-600 font-bold">Welcome to Travel Helper!</h3>
+    <h6>Your Personal Guide to Seamless Travel Planning</h6>
+    <p class="reset">
+      Please fill the form with your travel preferences to help us tailor the
+      perfect itinerary for you.
+    </p>
+
+    <p>
+      By providing these details, we can ensure a personalized and seamless
+      travel planning experience just for you.
+    </p>
+
+    <form [formGroup]="form" class="flex flex-wrap">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Nationality</mat-label>
+        <input type="text"
+               placeholder="Nationality..."
+               matInput
+               formControlName="nationality"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+      <div class="flex w-full gap-2">
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Buget From</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="100..."
+            formControName="budgetFrom"
+          />
+          @if (
+            form.controls.budgetFrom.invalid && form.controls.budgetFrom.touched
+          ) {
+            <ng-container *ngTemplateOutlet="requiredError"></ng-container>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Buget To</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="1000..."
+            formControName="budgetTo"
+          />
+          @if (
+            form.controls.budgetTo.invalid && form.controls.budgetTo.touched
+          ) {
+            <ng-container *ngTemplateOutlet="requiredError"></ng-container>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="flex w-full gap-2">
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Accommodation</mat-label>
+          <mat-select formControlName="accommodation">
+            @for (
+              accomodation of Accommodation | keyvalue;
+              track accomodation.key
+            ) {
+              <mat-option [value]="accomodation.value">{{
+                accomodation.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Language Preferences</mat-label>
+          <mat-select formControlName="languagePreferences">
+            @for (
+              language of LanguagePreferences | keyvalue;
+              track language.key
+            ) {
+              <mat-option [value]="language.value">{{
+                language.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex w-full gap-2">
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Preferable Climate</mat-label>
+          <mat-select formControlName="climate">
+            @for (climate of Climate | keyvalue; track climate.key) {
+              <mat-option [value]="climate.value">{{
+                climate.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Travel Duration</mat-label>
+          <mat-select formControlName="travelDuration">
+            @for (duration of TravelDuration | keyvalue; track duration.key) {
+              <mat-option [value]="duration.value">{{
+                duration.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Interests</mat-label>
+        <mat-select formControlName="interests">
+          @for (interests of Interests | keyvalue; track interests.key) {
+            <mat-option [value]="interests.value">{{
+              interests.value
+            }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div class="flex w-full gap-2">
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Travel Companions</mat-label>
+          <mat-select formControlName="travelCompanions">
+            @for (
+              companions of TravelCompanions | keyvalue;
+              track companions.key
+            ) {
+              <mat-option [value]="companions.value">{{
+                companions.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Dietary Preferences</mat-label>
+          <mat-select formControlName="dietaryPreferences">
+            @for (diet of DietaryPreferences | keyvalue; track diet.key) {
+              <mat-option [value]="diet.value">{{ diet.value }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex w-full gap-2">
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Mobility Requirements</mat-label>
+          <mat-select formControlName="mobilityRequirements">
+            @for (
+              mobility of MobilityRequirements | keyvalue;
+              track mobility.key
+            ) {
+              <mat-option [value]="mobility.value">{{
+                mobility.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1" appearance="outline">
+          <mat-label>Travel Experience</mat-label>
+          <mat-select formControlName="travelExperience">
+            @for (
+              experience of TravelExperience | keyvalue;
+              track experience.key
+            ) {
+              <mat-option [value]="experience.value">{{
+                experience.value
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Notes</mat-label>
+        <textarea
+          formControlName="notes"
+          matInput
+          placeholder="Notes..."
+        ></textarea>
+      </mat-form-field>
+    </form>
+    <ng-content></ng-content>
+  </div>
+</section>
+
+<ng-template #requiredError>
+  <mat-error> This field is required! </mat-error>
+</ng-template>

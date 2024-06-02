@@ -1,0 +1,33 @@
+<article
+  [ngClass]="{ 'justify-center items-center ': !isSearchTriggered() }"
+  class="flex w-full h-full bg-gray-100"
+>
+  <app-form
+    [form]="form"
+    [isSearchTriggered]="isSearchTriggered()"
+    [ngClass]="{
+      'my-20 rounded-2xl shadow-lg max-h-screen overflow-y-scroll':
+        !isSearchTriggered()
+    }"
+    class="block bg-white w-1/2"
+  >
+    <button [disabled]="form.invalid || isLoading()" (click)="submit()" class="w-fit" mat-fab extended color="primary">
+      @if (isLoading()) {
+        <app-loader></app-loader>
+      } @else {
+        <div class="flex items-center gap-2">
+          <mat-icon>favorite</mat-icon>
+          Submit
+        </div>
+      }
+    </button>
+  </app-form>
+
+  @if (isSearchTriggered()) {
+    <app-response
+      class="w-1/2"
+      [isLoading]="isLoading()"
+      [data]="data"
+    ></app-response>
+  }
+</article>
