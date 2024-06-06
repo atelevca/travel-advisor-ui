@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { combineLatest, map, Observable, tap } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import {
   Country,
   GPTResponse,
@@ -14,6 +14,7 @@ import {
 })
 export class DataService {
   private readonly _baseUrl = 'http://localhost:3000/openai';
+
   constructor(private readonly _http: HttpClient) {}
 
   getOpenAIResponse(data: TravelInput): Observable<Country[]> {
@@ -33,13 +34,13 @@ export class DataService {
     );
 
     return combineLatest<string[]>(requests).pipe(
-      map((res) => res.slice(0, 5)),
+      map((res) => res),
     );
   }
 
   getCountries(): Observable<string[]> {
     return this._http
       .get<string[]>(`https://countriesnow.space/api/v0.1/countries`)
-      .pipe(map((res: any) => res?.data.map((x: any) => x.country)));
+      .pipe(map((res: any) => res?.data.map((x: any) => x?.country)));
   }
 }

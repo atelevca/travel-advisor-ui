@@ -11,13 +11,12 @@
     }"
     class="block bg-white w-1/2"
   >
-    <button [disabled]="form.invalid || isLoading()" (click)="submit()" class="w-fit" mat-fab extended color="primary">
+    <button [disabled]="form.invalid || isLoading()" (click)="submit()" class="w-fit mb-2" mat-fab extended color="primary">
       @if (isLoading()) {
         <app-loader></app-loader>
       } @else {
         <div class="flex items-center gap-2">
-          <mat-icon>favorite</mat-icon>
-          Submit
+          <span class="font-bold">Submit</span>
         </div>
       }
     </button>

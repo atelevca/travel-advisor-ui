@@ -64,7 +64,6 @@ import {
     MatAutocomplete,
   ],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent implements OnInit {
