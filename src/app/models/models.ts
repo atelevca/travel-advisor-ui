@@ -57,6 +57,17 @@ export interface ParsedData {
   countries: Country[];
 }
 
+export interface ParsedDetails {
+  places: Place[];
+}
+
+export interface Place {
+  name: string;
+  location: string;
+  description: string;
+  linkToResortBooking?: string;
+}
+
 export interface Country {
   countryName: string;
   description: string;
@@ -70,4 +81,11 @@ export interface ImageResponse {
 
 export interface ImageData {
   url: string;
+}
+
+export interface CountryDetailsPayload {
+  countryName: string;
+  travelCompanions: string;
+  interests: string;
+  accommodation: string;
 }

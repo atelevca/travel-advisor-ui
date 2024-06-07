@@ -1,0 +1,66 @@
+<h3 mat-dialog-title class="text-sky-600 font-bold">Places to stay</h3>
+
+<mat-dialog-content>
+<div class="flex flex-col gap-5">
+  <ng-container *ngIf="places$ | async as places; else skeleton" >
+    @for (place of places; track place.name) {
+      <div class="card rounded-lg overflow-hidden shadow-lg p-5 bg-white cursor-pointer">
+        <div class="flex items-center mb-2">
+          <div class="ml-4 flex justify-between items-center w-full">
+            <div class="w-full flex flex-col">
+              <div class="flex items-center gap-3">
+                <h4 class="text-lg font-semibold text-slate-800">
+                  {{ place?.name }} ({{place?.location}})
+                </h4>
+              </div>
+
+              <p class="text-sm text-slate-600">{{ place?.description }}</p>
+
+            </div>
+            @if(place?.linkToResortBooking) {
+              <button  mat-fab color="accent" class="ml-4 p-4" aria-label="Example icon button with a home icon">
+              <a [href]="place.linkToResortBooking" target="_blank">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+              </a>
+              </button>
+          }
+          </div>
+        </div>
+      </div>
+    }
+  </ng-container>
+
+  <ng-template #skeleton>
+    @for (s of [1, 2, 3, 4]; track s) {
+      <div class="rounded overflow-hidden shadow-lg p-5 bg-white">
+        <div class="flex items-center w-full mb-2">
+          <div class="w-full flex  justify-between items-center">
+            <div class="w-full flex-col gap-5 flex">
+              <app-skeleton
+                [height]="'40px'"
+                [width]="'200px'"
+              ></app-skeleton>
+
+              <app-skeleton
+                class="w-full block mt-3"
+                [height]="'100px'"
+                [width]="'100%'"
+              ></app-skeleton>
+            </div>
+
+            <app-skeleton
+              class="w-1/3 flex justify-end items-center"
+              [height]="'54px'"
+              [width]="'66px'"
+            ></app-skeleton>
+          </div>
+        </div>
+      </div>
+    }
+  </ng-template>
+</div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="text-xl py-8	 px-10" mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

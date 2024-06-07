@@ -24,6 +24,7 @@
 
   @if (isSearchTriggered()) {
     <app-response
+      [formValue]="submittedValue"
       class="w-1/2"
       [isLoading]="isLoading()"
       [data]="data"

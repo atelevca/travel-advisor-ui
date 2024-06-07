@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable } from 'rxjs';
 import {
-  Country,
+  Country, CountryDetailsPayload,
   GPTResponse,
   ImageResponse,
-  ParsedData,
+  ParsedData, ParsedDetails, Place,
   TravelInput,
 } from '../models/models';
 
@@ -26,6 +26,14 @@ export class DataService {
       );
   }
 
+  getCountryDetails(data: CountryDetailsPayload):Observable<Place[]>{
+  return this._http.post<GPTResponse[]>(`${this._baseUrl}/details`, data)
+    .pipe(
+      map((res) => res[0].message.content),
+      map((res) => (JSON.parse(res) as ParsedDetails).places),
+    );
+  }
+
   getImages(countries: string[]): Observable<string[]> {
     const requests: Observable<string>[] = countries.map((countryName) =>
       this._http
@@ -40,7 +48,7 @@ export class DataService {
 
   getCountries(): Observable<string[]> {
     return this._http
-      .get<string[]>(`https://countriesnow.space/api/v0.1/countries`)
-      .pipe(map((res: any) => res?.data.map((x: any) => x?.country)));
+      .get<{countries:string[]}>(`${this._baseUrl}/countries`)
+      .pipe(map((res: {countries:string[]}) => res?.countries));
   }
 }

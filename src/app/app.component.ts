@@ -54,6 +54,7 @@ export class AppComponent {
   });
 
   isSearchTriggered: WritableSignal<boolean> = signal(false);
+  submittedValue: TravelInput;
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -61,6 +62,8 @@ export class AppComponent {
   ) {}
 
   submit(): void {
+    this.submittedValue=this.form.getRawValue();
+
     this.isSearchTriggered.set(true);
     this.isLoading.set(true);
     this._dataService

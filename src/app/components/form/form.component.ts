@@ -44,6 +44,8 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
+import {MatDialog} from "@angular/material/dialog";
+import {CountryDetailsComponent} from "../country-details/country-details.component";
 
 @Component({
   selector: 'app-form',
@@ -97,6 +99,7 @@ export class FormComponent implements OnInit {
       );
     });
   }
+
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
